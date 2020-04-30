@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = 'restdb'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/otis'
+app.config['MONGO_URI'] = 'mongodb://db:27017/otis'
 
 mongo = PyMongo(app)
 
@@ -34,6 +34,5 @@ def get_screen(id):
     return jsonify({"result": output})
 
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
