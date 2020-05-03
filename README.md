@@ -17,12 +17,12 @@ Testing and building will be with Jenkins.
 * **POST /screen/** will create a blank screen object and return the id
 * **PUT /screen/<id>** will update the values included in the body on a screen object
 * **GET /screen/<id>** will return a screen object
-* **DELETE /screen/<id>** deletes a screen from the database
+* **DELETE /screen/<id>** recursively deletes a screen from the database and any child screens/options
 
-* **POST /screen/option-array/<id>** will add an option to a screens option array
+* **PUT /screen/option-array/<id>** will add an option to a screens option array
 * **DELETE /screen/option-array/<id>** will delete an option from a screens option array
 
 * **POST /option** creates an option pointing to the screen id included in the body. Returns the option id
 * **GET /option/<id>** returns the title and the id for the screen it points to
 * **PUT /option/<id>** updates the option with the values included in the body
-* **DELETE /option/<id>** deletes the option
+* **DELETE /option/<id>** recursively deletes the option and any child screens/options

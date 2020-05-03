@@ -4,6 +4,8 @@ from flask_restful import Resource
 
 from . import Db
 
+from .delete_recursively import delete_option
+
 class Option(Resource):
     def __init__(self):
         self.options = Db.mongo.db.options
@@ -44,10 +46,11 @@ class OptionSpecific(Resource):
 
         return self.get(id)
 
-    # Deletes the option and any children screens/options
+    # Recursively deletes the option and any child screens/options
     def delete(self, id):
         options = self.options
-
-        options.delete_one({"_id": ObjectId(id)})
+        
+        option = options.find_one({"_id": ObjectId(id)})
+        delete_option(option)
 
         return jsonify({"success": True})

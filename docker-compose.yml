@@ -8,11 +8,14 @@ services:
             context: .
         container_name: flask
         ports:
-            - "5000:5000"
+            - 5000:5000
         volumes:
             - ./:/otis # For easy debugging
             - /home/data:/data/db
         depends_on: 
             - db
     db:
+        container_name: mongo
         image: mongo
+        ports:
+            - 27017:27017 # For easy debugging

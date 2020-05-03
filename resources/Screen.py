@@ -4,6 +4,8 @@ from flask_restful import Resource
 
 from . import Db
 
+from .delete_recursively import delete_screen
+
 class Screen(Resource):
     def __init__(self):
         self.screens = Db.mongo.db.screens
@@ -41,20 +43,23 @@ class ScreenSpecific(Resource):
 
         return jsonify({"output": screen})
 
-    # Deletes a screen from the database
+    # Recursively deletes a screen from the database and any child screens/options
     def delete(self, id):
         screens = self.screens
+        
+        screen = screens.find_one({"_id": ObjectId(id)})
 
-        screens.delete_one({"_id": ObjectId(id)})
+        delete_screen(screen)
 
         return jsonify({"success": True})
+
 
 class ScreenOptionArray(Resource):
     def __init__(self):
         self.screens = Db.mongo.db.screens
 
     # Will add an option to a screens option array
-    def post(self, id):
+    def put(self, id):
         screens = self.screens
         data = request.get_json()
 
