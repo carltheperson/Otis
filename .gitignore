@@ -1,3 +1,4 @@
 __pycache__/
 .vscode/
 resources/__pycache__/
+otis-frontend/node_modules/
