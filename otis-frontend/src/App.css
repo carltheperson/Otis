@@ -1,0 +1,19 @@
+body {
+    padding: 3%;
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    background-color: #EDEDED;
+}
+
+.terminal p {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.terminal .title, .terminal .end {
+    margin-bottom: 20px;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
