@@ -14,8 +14,33 @@ services:
             - /home/data:/data/db
         depends_on: 
             - db
+        networks:
+            main_network:
+                ipv4_address: 172.29.1.1
     db:
         container_name: mongo
         image: mongo
         ports:
             - 27017:27017 # For easy debugging
+        networks:
+            - main_network
+    frontend:
+        build:
+            context: ./otis-frontend
+        container_name: otisFrontend
+        stdin_open: true
+        ports:
+            - 3000:3000
+        volumes:
+            - ./otis-frontend:/otis-frontend
+        depends_on: 
+            - flask
+        networks:
+            - main_network
+
+networks:
+  main_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.29.0.0/16

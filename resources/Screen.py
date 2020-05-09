@@ -6,6 +6,8 @@ from . import Db
 
 from .delete_recursively import delete_screen
 
+import datetime
+
 class Screen(Resource):
     def __init__(self):
         self.screens = Db.mongo.db.screens
@@ -15,6 +17,24 @@ class Screen(Resource):
         screens = self.screens
         screen_id = screens.insert({"options": []})
         return jsonify({"id": str(screen_id)})
+
+class MainScreen(Resource):
+    def __init__(self):
+        self.screens = Db.mongo.db.screens
+    
+    def post(self):
+        screens = self.screens
+        data = request.get_json()
+        screen_id = screens.insert({"options": [], "main": True, "name": data["name"], "date": datetime.datetime.now()})
+        return jsonify({"id": str(screen_id)})
+    
+    def get(self):
+        screens = self.screens
+        main_screens = screens.find({"main": True}).sort("date", -1)
+        main_screen = main_screens[0]
+        del main_screen["date"]
+        main_screen["_id"] = str(main_screen["_id"])
+        return main_screen
 
 class ScreenSpecific(Resource):
     def __init__(self):
