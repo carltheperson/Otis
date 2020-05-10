@@ -5,6 +5,7 @@ import './App.css';
 // Components
 import MainPage from "./Components/Pages/MainPage";
 import NewAdventure from "./Components/Pages/NewAdventure";
+import YourAdventures from "./Components/Pages/YourAdventures";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
         </Route>
         <Route exact path="/new-adventure">
           <NewAdventure/>
+        </Route>
+        <Route exact path="/your-adventures">
+          <YourAdventures/>
         </Route>
       </div>
     </Router>

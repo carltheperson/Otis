@@ -20,8 +20,8 @@ export default function MainPage() {
                 <img alt="Crow" src={Crow} style={styles.crow}/>
                 <Terminal width="50%" height="500px" options={
                     [{1: "Create a new adventure", func:() => history.push("/new-adventure")},
-                    {2: "Work on an existing adventure"},
-                    {3: "About Otis"}]}>
+                    {2: "Work on an existing adventure", func:() => history.push("/your-adventures")},
+                    {3: "About Otis", func:() => history.push("/about")}]}>
                 To continue, select from the menu:
                 </Terminal>
             </div>

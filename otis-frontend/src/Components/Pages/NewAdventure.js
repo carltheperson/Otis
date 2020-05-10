@@ -11,7 +11,13 @@ export default function NewAdventure() {
     const history = useHistory();
 
     const createAdventure = () => {
-        axios.post("http://172.29.1.1:5000/api/screen-main", {name: inputText});
+        axios.post("http://172.29.1.1:5000/api/screen-main", {title: inputText}).then((res) => {
+            goToAdventure(res.data.id);
+        });
+    }
+
+    const goToAdventure = (id) => {
+        history.push(`/editor/${id}`)
     }
 
     const changeInputText = (value) => {
@@ -27,7 +33,6 @@ export default function NewAdventure() {
     const checkEnter = (e) => {
         if (e.keyCode === 13) {
             createAdventure();
-            history.push("/editor")
         }
     }
 
@@ -37,7 +42,7 @@ export default function NewAdventure() {
                 <p style={styles.mainText}>What is the title of your new adventure?</p>
                 <input style={styles.input} autoFocus={true} onKeyDown={checkEnter} onChange={(e) => changeInputText(e.target.value)}/>
                 <br/>
-                {ableToContinue && <Link style={styles.link} to="/editor" onClick={createAdventure}>Continue</Link>}
+                {ableToContinue && <Link style={styles.link} to="" onClick={createAdventure}>Continue</Link>}
             </div>
         </PageWrapper>
     )

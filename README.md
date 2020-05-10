@@ -22,7 +22,7 @@ Testing and building will be with Jenkins.
 * **DELETE /screen/(id)** recursively deletes a screen from the database and any child screens/options
 
 * **POST /screen-main** creates the main screen for an adventure
-* **GET /screen-main** returns the latest main screen
+* **GET /screen-main** returns all main screens
 
 * **PUT /screen/option-array/(id)** will add an option to a screens option array
 * **DELETE /screen/option-array/(id)** will delete an option from a screens option array
