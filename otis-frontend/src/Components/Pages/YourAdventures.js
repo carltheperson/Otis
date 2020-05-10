@@ -13,9 +13,10 @@ export default function YourAdventures() {
 
     useEffect(() => {
         getCards();
-    });
+    }, []);
 
     const getCards = () => {
+        console.log("getting");
         axios.get("http://172.29.1.1:5000/api/screen-main").then((result) => {
             setCards(result.data.map((screen, i) => {
                 return <AdventureCard title={screen.title} id={screen.id} key={i}/>
