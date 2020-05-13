@@ -85,7 +85,7 @@ class ScreenOptionArray(Resource):
 
         del screen["_id"]
 
-        screen["options"].append(data["option_id"])
+        screen["options"].append({"option_id": data["option_id"], "option_text": data["option_text"]})
         
         screens.update_one({
             "_id": ObjectId(id)
@@ -104,7 +104,7 @@ class ScreenOptionArray(Resource):
         
         screen = screens.find_one({"_id": ObjectId(id)})
 
-        screen["options"].remove(data["option_id"])
+        screen["options"].remove({"option_id": data["option_id"], "option_text": data["option_text"]})
 
         screens.update_one({
             "_id": ObjectId(id)

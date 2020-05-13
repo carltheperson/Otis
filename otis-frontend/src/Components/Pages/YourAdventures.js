@@ -8,16 +8,18 @@ import AdventureCard from "../AdventureCard";
 
 export default function YourAdventures() {
     const [cards, setCards] = useState([<p style={{fontSize: "30px"}} key={0}>Loading</p>]);
+    const [isFetched, setIsFetched] = useState(false);
 
     const history = useHistory();
 
     useEffect(() => {
         getCards();
-    }, []);
+    });
 
     const getCards = () => {
-        console.log("getting");
+        if (isFetched) return;
         axios.get("http://172.29.1.1:5000/api/screen-main").then((result) => {
+            setIsFetched(true);
             setCards(result.data.map((screen, i) => {
                 return <AdventureCard title={screen.title} id={screen.id} key={i}/>
             }));

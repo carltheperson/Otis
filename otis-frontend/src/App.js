@@ -6,6 +6,7 @@ import './App.css';
 import MainPage from "./Components/Pages/MainPage";
 import NewAdventure from "./Components/Pages/NewAdventure";
 import YourAdventures from "./Components/Pages/YourAdventures";
+import Editor from "./Components/Pages/Editor";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/your-adventures">
           <YourAdventures/>
         </Route>
+        <Route path="/edit/:id" component={Editor}></Route>
       </div>
     </Router>
   );
