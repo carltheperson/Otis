@@ -82,12 +82,17 @@ export default function ScreenBlock(props) {
 
     const options = () => {
         return screen.options.map((option, index) => {
-            return <React.Fragment key={option.option_id}>
-                    <img alt="delete" src={deleteIcon} onClick={() => removeOption(index)} />
-                    {!(optionToggled === index) && <p onClick={() => setOptionToggled(index)}>{(index+1).toString()+ ". " + option.option_text}</p>}
-                    {(optionToggled === index) && <input placeholder={option.option_text} autoFocus
-                    onKeyDown={(e) => checkEnterOption(e, index)} onChange={(e) => setOptionInput(e.target.value)}/>}
-                </React.Fragment>
+            return <div key={option.option_id} style={styles.option}>
+                    
+                    {!(optionToggled === index) &&
+                        <div style={styles.optionTextContainer}>
+                            <img alt="delete" src={deleteIcon} onClick={() => removeOption(index)} style={styles.deleteIcon} />
+                            <p onClick={() => setOptionToggled(index)} style={styles.optionText}>
+                                {(index+1).toString()+ ". " + option.option_text}</p>
+                        </div>}
+                    {(optionToggled === index) && <input style={styles.input} placeholder={option.option_text} autoFocus
+                        onKeyDown={(e) => checkEnterOption(e, index)} onChange={(e) => setOptionInput(e.target.value)}/>}
+                </div>
         });
     }
 
@@ -97,11 +102,11 @@ export default function ScreenBlock(props) {
         <div style={styles.container}>
             {props.main && <React.Fragment>
                 {!titleToggled && <p style={styles.title} onClick={() => setTitleToggled(true)}>{screen.title}</p>}
-                {titleToggled && <input placeholder={screen.title} onKeyDown={checkEnterTitle} onChange={(e) => setTitleInput(e.target.value)}/>}
+                {titleToggled && <input style={styles.input} placeholder={screen.title} onKeyDown={checkEnterTitle} onChange={(e) => setTitleInput(e.target.value)}/>}
             </React.Fragment>}
             
             {!textToggled && <p style={styles.text} onClick={() => setTextToggled(true)}>{screen.text}</p>}
-            {textToggled && <input placeholder={screen.text} onKeyDown={checkEnterText} onChange={(e) => setTextInput(e.target.value)}/>}
+            {textToggled && <input style={styles.input} placeholder={screen.text} onKeyDown={checkEnterText} onChange={(e) => setTextInput(e.target.value)}/>}
         
             <p style={styles.optionsText}>Options:</p>
 
@@ -141,8 +146,34 @@ const styles = {
         cursor: "pointer",
 
     },
+    input: {
+        border: "none",
+        padding: "5px",
+        borderRadius: "3px",
+        margin: "5px",
+    },
     optionsText: {
         fontSize: "22px",
         fontWeight: "800",
+    },
+    option: {
+        width: "100%",
+        margin: "5px",
+        textAlign: "left",
+    },
+    optionTextContainer: {
+        margin: "0",
+        display: "flex",
+    },
+    optionText: {
+        backgroundColor: "white",
+        padding: "5px",
+        borderRadius: "3px",
+        border: "solid #666666 2px",
+        margin: "0 10px 0",
+        paddingRight: "10px",
+    },
+    deleteIcon: {
+        cursor: "pointer",
     }
 }
