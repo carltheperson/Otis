@@ -53,4 +53,4 @@ class OptionSpecific(Resource):
         option = options.find_one({"_id": ObjectId(id)})
         delete_option(option)
 
-        return jsonify({"success": True})
+        return jsonify({"option id": True})

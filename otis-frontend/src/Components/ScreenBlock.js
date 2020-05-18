@@ -65,18 +65,23 @@ export default function ScreenBlock(props) {
     }
     
     const createOption = () => {
-        axios.post(`http://172.29.1.1:5000/api/option`, {screen_id: props.id}).then((result) => {
-            let tmpScreen = screen;
-            tmpScreen.options.push({option_id: result.data.id, option_text: "No option text"});
-            update(tmpScreen);
-            setOptionToggled(screen.options.length-1);
-        });
+        axios.post(`http://172.29.1.1:5000/api/screen`).then((result) => { // Create empty screen for option
+            axios.post(`http://172.29.1.1:5000/api/option`, {screen_id: result.data.id}).then((result) => { // Creating option
+                let tmpScreen = screen;
+                tmpScreen.options.push({option_id: result.data.id, option_text: "No option text"});
+                update(tmpScreen);
+                setOptionToggled(screen.options.length-1);
+            });
+        })
     }
     const removeOption = (index) => {
         if (window.confirm("Are you sure you want to delete this option?")) {
-            let tmpScreen = screen;
-            tmpScreen.options.splice(index, 1);
-            update(tmpScreen);
+            axios.delete(`http://172.29.1.1:5000/api/option/${screen.options[index].option_id}`).then(() => {
+                let tmpScreen = screen;
+                tmpScreen.options.splice(index, 1);
+                update(tmpScreen);
+            });
+
         }
     }
 
@@ -90,7 +95,7 @@ export default function ScreenBlock(props) {
                             <p onClick={() => setOptionToggled(index)} style={styles.optionText}>
                                 {(index+1).toString()+ ". " + option.option_text}</p>
                         </div>}
-                    {(optionToggled === index) && <input style={styles.input} placeholder={option.option_text} autoFocus
+                    {(optionToggled === index) && <input style={styles.input} defaultValue={option.option_text} autoFocus
                         onKeyDown={(e) => checkEnterOption(e, index)} onChange={(e) => setOptionInput(e.target.value)}/>}
                 </div>
         });
@@ -102,11 +107,11 @@ export default function ScreenBlock(props) {
         <div style={styles.container}>
             {props.main && <React.Fragment>
                 {!titleToggled && <p style={styles.title} onClick={() => setTitleToggled(true)}>{screen.title}</p>}
-                {titleToggled && <input style={styles.input} placeholder={screen.title} onKeyDown={checkEnterTitle} onChange={(e) => setTitleInput(e.target.value)}/>}
+                {titleToggled && <input style={styles.input} defaultValue={screen.title} onKeyDown={checkEnterTitle} onChange={(e) => setTitleInput(e.target.value)}/>}
             </React.Fragment>}
             
             {!textToggled && <p style={styles.text} onClick={() => setTextToggled(true)}>{screen.text}</p>}
-            {textToggled && <input style={styles.input} placeholder={screen.text} onKeyDown={checkEnterText} onChange={(e) => setTextInput(e.target.value)}/>}
+            {textToggled && <textarea style={styles.input} defaultValue={screen.text} onKeyDown={checkEnterText} onChange={(e) => setTextInput(e.target.value)}/>}
         
             <p style={styles.optionsText}>Options:</p>
 

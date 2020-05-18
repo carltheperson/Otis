@@ -8,8 +8,9 @@ from resources.Option import Option, OptionSpecific
 from resources import Db
 
 app = Flask(__name__)
+CORS(app)
 api_bp = Blueprint("api", __name__, url_prefix="/api")
-CORS(app, resources={r"*": {"origins": "*"}})
+# CORS(app, resources={r"*": {"origins": "*", "Access-Control-Allow-Origin": "*"}})
 
 api = Api(api_bp)
 

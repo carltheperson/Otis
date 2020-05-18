@@ -11,8 +11,8 @@ def delete_screen(screen):
 
     # Calling delete_option() on all options in the options array
     options_array = screen["options"]
-    for option_id in options_array:
-        option = options.find_one({"_id": ObjectId(option_id)})
+    for option_refrence in options_array:
+        option = options.find_one({"_id": ObjectId(option_refrence["option_id"])})
         delete_option(option)
 
     # Deleting the screen from the database
