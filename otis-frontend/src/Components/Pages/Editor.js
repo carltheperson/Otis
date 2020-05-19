@@ -16,9 +16,6 @@ export default function Editor(props) {
             <ScreenBlock main={true} id={id}/>
             
 
-            {/* 
-            Example of how to organize the editor
-            
             <div style={styles.boxContainer}>
                 <div style={styles.box}></div>
                 <div style={{border: "1px solid blue", display: "flex", alignItems: "center"}}>
@@ -41,7 +38,6 @@ export default function Editor(props) {
                 <div style={styles.box}></div>
 
             </div>
-            */}
             
         </PageWrapper>
     )

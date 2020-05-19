@@ -4,7 +4,7 @@ from flask_restful import Resource
 
 from . import Db
 
-from .delete_recursively import delete_screen
+from .delete_recursively import delete
 
 class Screen(Resource):
     def __init__(self):
@@ -61,57 +61,12 @@ class ScreenSpecific(Resource):
 
         return jsonify({"output": screen})
 
-    # Recursively deletes a screen from the database and any child screens/options
+    # Recursively deletes a screen
     def delete(self, id):
         screens = self.screens
         
         screen = screens.find_one({"_id": ObjectId(id)})
 
-        delete_screen(screen)
-
-        return jsonify({"success": True})
-
-
-class ScreenOptionArray(Resource):
-    def __init__(self):
-        self.screens = Db.mongo.db.screens
-
-    # Will add an option to a screens option array
-    def put(self, id):
-        screens = self.screens
-        data = request.get_json()
-
-        screen = screens.find_one({"_id": ObjectId(id)})
-
-        del screen["_id"]
-
-        screen["options"].append({"option_id": data["option_id"], "option_text": data["option_text"]})
-        
-        screens.update_one({
-            "_id": ObjectId(id)
-        },{
-            "$set": {
-                "options": screen["options"]
-            }
-        })
-        
-        return jsonify({"success": True})
-    
-    # Will delete an option from a screens option array
-    def delete(self, id):
-        screens = self.screens
-        data = request.get_json()
-        
-        screen = screens.find_one({"_id": ObjectId(id)})
-
-        screen["options"].remove({"option_id": data["option_id"], "option_text": data["option_text"]})
-
-        screens.update_one({
-            "_id": ObjectId(id)
-        },{
-            "$set": {
-                "options": screen["options"]
-            }
-        })
+        delete(screen)
 
         return jsonify({"success": True})

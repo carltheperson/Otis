@@ -66,17 +66,15 @@ export default function ScreenBlock(props) {
     
     const createOption = () => {
         axios.post(`http://172.29.1.1:5000/api/screen`).then((result) => { // Create empty screen for option
-            axios.post(`http://172.29.1.1:5000/api/option`, {screen_id: result.data.id}).then((result) => { // Creating option
                 let tmpScreen = screen;
-                tmpScreen.options.push({option_id: result.data.id, option_text: "No option text"});
+                tmpScreen.options.push({screen_id: result.data.id, option_text: "No option text"});
                 update(tmpScreen);
                 setOptionToggled(screen.options.length-1);
-            });
         })
     }
     const removeOption = (index) => {
         if (window.confirm("Are you sure you want to delete this option?")) {
-            axios.delete(`http://172.29.1.1:5000/api/option/${screen.options[index].option_id}`).then(() => {
+            axios.delete(`http://172.29.1.1:5000/api/screen/${screen.options[index].screen_id}`).then(() => {
                 let tmpScreen = screen;
                 tmpScreen.options.splice(index, 1);
                 update(tmpScreen);
@@ -87,7 +85,7 @@ export default function ScreenBlock(props) {
 
     const options = () => {
         return screen.options.map((option, index) => {
-            return <div key={option.option_id} style={styles.option}>
+            return <div key={option.screen_id} style={styles.option}>
                     
                     {!(optionToggled === index) &&
                         <div style={styles.optionTextContainer}>
