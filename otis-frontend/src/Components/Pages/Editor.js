@@ -1,67 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
 
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-json";
+import "ace-builds/src-noconflict/theme-github";
+
 import PageWrapper from "../PageWrapper";
-import ScreenBlock from "../ScreenBlock";
 
-export default function Editor(props) {
+
+export default function AdventureEditor(props) {
     const history = useHistory();
+
+    const [code, setCode] = useState("");
+
     
-    const id = props.match.params.id;
-
-
     return (
         <PageWrapper back={() => history.push("/your-adventures")}>
 
-            <ScreenBlock main={true} id={id}/>
-            
+        <AceEditor
+            mode="json"
+            theme="github"
+            value={code}
+            onChange={newValue => setCode(newValue)}
+            style={styles.editor}
+            setOptions={{
+                fontSize: 18,
+                showPrintMargin: false,
+            }}/>
 
-            <div style={styles.boxContainer}>
-                <div style={styles.box}></div>
-                <div style={{border: "1px solid blue", display: "flex", alignItems: "center"}}>
-                    <div style={{...styles.box, maxWidth: "50%"}}></div>
-                    <div style={styles.boxContainer}>
-                        <div style={styles.box}></div>
-                        <div style={styles.box}></div>
-                        <div>
-                        <div style={{border: "1px solid blue", display: "flex", alignItems: "center"}}>
-                            <div style={{...styles.box, maxWidth: "50%", height: "100px"}}></div>
-                            <div style={styles.boxContainer}>
-                                <div style={styles.box}></div>
-                                <div style={styles.box}></div>
-                                <div style={styles.box}></div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style={styles.box}></div>
-
-            </div>
-            
         </PageWrapper>
     )
 }
 
 const styles = {
-    box: {
-        border: "1px solid red",
-        backgroundColor: "lightgreen",
-        width: "50px",
-        height: "50px",
-        margin: "10px",
-        marginLeft: "40px",
+    editor: {
+        width: "",
+        height: "85vh",
+        fontSize: "180px",
     },
-    box2: {
-        border: "1px solid red",
-        backgroundColor: "lightgreen",
-        width: "50px",
-        height: "100px",
-        margin: "10px",
-    },
-    boxContainer: {
-        border: "1px solid red",
-        display: "grid",
-
-    }
 }
