@@ -1,32 +1,69 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory} from "react-router-dom";
 
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
 
+import "ace-builds/webpack-resolver";
+
 import PageWrapper from "../PageWrapper";
+
+import saveIcon from "../../res/save.svg";
+import axios from 'axios';
 
 
 export default function AdventureEditor(props) {
     const history = useHistory();
 
-    const [code, setCode] = useState("");
+    const [isFetched, setIsFetched] = useState(false);
+    const [source, setSource] = useState("");
 
+    useEffect(() => {
+        if (!isFetched) getAdventure();
+    });
+
+    const getAdventure = () => {
+        axios.get(`http://172.29.1.1:5000/api/adventure/${props.match.params.id}`).then((result) => {
+            setIsFetched(true);
+            setSource(result.data.source);
+        });
+    }
+
+    const save = (source) => {
+        axios.put(`http://172.29.1.1:5000/api/adventure/${props.match.params.id}`, {source: source});
+    }
+
+    const getSource = () => {
+        return source;
+    }
     
     return (
         <PageWrapper back={() => history.push("/your-adventures")}>
 
-        <AceEditor
-            mode="json"
-            theme="github"
-            value={code}
-            onChange={newValue => setCode(newValue)}
-            style={styles.editor}
-            setOptions={{
-                fontSize: 18,
-                showPrintMargin: false,
-            }}/>
+            <img style={styles.saveIcon} alt="save icon" src={saveIcon} onClick={() => save(source)}/>
+
+            <AceEditor
+                mode="json"
+                theme="github"
+                value={source}
+                onChange={newValue => setSource(newValue)}
+                style={styles.editor}
+                setOptions={{
+                    fontSize: 18,
+                    showPrintMargin: false,
+                    useWorker: false,
+                    
+                }}
+                commands={[{
+                    name: 'saveFile',
+                    bindKey: {
+                        win: 'Ctrl-S',
+                        mac: 'Command-S',
+                    },
+                    exec: ((env) => {save(env.getValue())}),
+                }]}
+                />
 
         </PageWrapper>
     )
@@ -36,6 +73,11 @@ const styles = {
     editor: {
         width: "",
         height: "85vh",
-        fontSize: "180px",
+        border: "3px lightgrey solid",
+        willChange: "transform",
     },
+    saveIcon: {
+        width: "50px",
+        cursor: "pointer",
+    }
 }

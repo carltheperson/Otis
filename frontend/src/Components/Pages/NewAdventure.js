@@ -11,13 +11,13 @@ export default function NewAdventure() {
     const history = useHistory();
 
     const createAdventure = () => {
-        axios.post("http://172.29.1.1:5000/api/screen-main", {title: inputText}).then((res) => {
+        axios.post("http://172.29.1.1:5000/api/adventure", {title: inputText}).then((res) => {
             goToAdventure(res.data.id);
         });
     }
 
     const goToAdventure = (id) => {
-        history.push(`/editor/${id}`)
+        history.push(`/edit/${id}`)
     }
 
     const changeInputText = (value) => {

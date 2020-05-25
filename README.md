@@ -3,7 +3,7 @@
 ![](screenshot.png)
 
 Otis will become a text adventure maker that converts to native shell scripts for different operating systems.
-It will have a web GUI interface, and is meant to be ran in Docker.
+It will have it's own markdown language, and is meant to be ran in Docker.
 
 You will be able to export to batch and bash.
 
@@ -14,12 +14,20 @@ Database will be MongdoDB.
 Testing and building will be with Jenkins.
 
 
-## API endpoints
+## Backend structure
 
-* **POST /screen/** will create a blank screen object and return the id
-* **PUT /screen/(id)** will update the values included in the body on a screen object
-* **GET /screen/(id)** will return a screen object
-* **DELETE /screen/(id)** recursively deletes a screen from the database and any child screens/options
+### Database Adventures
+Each adventure will be stored in the database in the collection "adventures".
+This will include:
 
-* **POST /screen-main** creates the main screen for an adventure
-* **GET /screen-main** returns all main screens
+* title: The title of the adventure.
+* source: The source code in Otis markdown.
+
+### API endpoints
+
+* **POST /adventure** Creates a new blank adventure with the title included in the body. Returns the id.
+* **GET /adventure** Get an array of all adventures with the title and id.
+
+* **GET /adventure/(id)** Returns the adventure object.
+* **PUT /adventure/(id)** Applies any changes included in the request body.
+* **DELETE /adventure/(id)** Deletes an adventure.

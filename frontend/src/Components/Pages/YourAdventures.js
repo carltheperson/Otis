@@ -18,10 +18,10 @@ export default function YourAdventures() {
 
     const getCards = () => {
         if (isFetched) return;
-        axios.get("http://172.29.1.1:5000/api/screen-main").then((result) => {
+        axios.get("http://172.29.1.1:5000/api/adventure").then((result) => {
             setIsFetched(true);
-            setCards(result.data.map((screen, i) => {
-                return <AdventureCard title={screen.title} id={screen.id} key={i}/>
+            setCards(result.data.map((adv, i) => {
+                return <AdventureCard title={adv.title} id={adv.id} key={i}/>
             }));
         });
         
