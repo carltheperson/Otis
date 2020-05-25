@@ -1,6 +1,6 @@
 FROM node:latest
 
-ENV PROJECTDIR /otis-frontend
+ENV PROJECTDIR /otis
 
 WORKDIR $PROJECTDIR
 

@@ -1,4 +1,4 @@
-__pycache__/
+backend/__pycache__/
+backend/resources/__pycache__/
+frontend/node_modules/
 .vscode/
-resources/__pycache__/
-otis-frontend/node_modules/

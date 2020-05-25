@@ -5,12 +5,12 @@ services:
             - FLASK_ENV=development
             - FLASK_APP=main.py
         build:
-            context: .
+            context: ./backend
         container_name: flask
         ports:
             - 5000:5000
         volumes:
-            - ./:/otis # For easy debugging
+            - ./backend:/otis # For easy debugging
             - /home/data:/data/db
         depends_on: 
             - db
@@ -24,15 +24,15 @@ services:
             - 27017:27017 # For easy debugging
         networks:
             - main_network
-    frontend:
+    react:
         build:
-            context: ./otis-frontend
-        container_name: otisFrontend
+            context: ./frontend
+        container_name: react
         stdin_open: true
         ports:
             - 3000:3000
         volumes:
-            - ./otis-frontend:/otis-frontend
+            - ./frontend:/otis
         depends_on: 
             - flask
         networks:
