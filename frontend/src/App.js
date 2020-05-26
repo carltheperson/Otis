@@ -7,6 +7,7 @@ import MainPage from "./Components/Pages/MainPage";
 import NewAdventure from "./Components/Pages/NewAdventure";
 import YourAdventures from "./Components/Pages/YourAdventures";
 import Editor from "./Components/Pages/Editor";
+import Export from "./Components/Pages/Export";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <YourAdventures/>
         </Route>
         <Route path="/edit/:id" component={Editor}></Route>
+        <Route path="/export/:id" component={Export}></Route>
       </div>
     </Router>
   );

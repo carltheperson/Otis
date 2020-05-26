@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from "react-router-dom";
 
+import axios from 'axios';
+
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
-
 import "ace-builds/webpack-resolver";
 
 import PageWrapper from "../PageWrapper";
 
 import saveIcon from "../../res/save.svg";
-import axios from 'axios';
-
+import exportIcon from "../../res/export.svg";
 
 export default function AdventureEditor(props) {
     const history = useHistory();
@@ -33,15 +33,13 @@ export default function AdventureEditor(props) {
     const save = (source) => {
         axios.put(`http://172.29.1.1:5000/api/adventure/${props.match.params.id}`, {source: source});
     }
-
-    const getSource = () => {
-        return source;
-    }
     
     return (
         <PageWrapper back={() => history.push("/your-adventures")}>
 
-            <img style={styles.saveIcon} alt="save icon" src={saveIcon} onClick={() => save(source)}/>
+            <img style={styles.icon} alt="save icon" src={saveIcon} onClick={() => save(source)}/>
+            <img style={styles.icon} alt="export icon" src={exportIcon} onClick={() => history.push("/export/"+props.match.params.id)}/>
+
 
             <AceEditor
                 mode="json"
@@ -76,7 +74,7 @@ const styles = {
         border: "3px lightgrey solid",
         willChange: "transform",
     },
-    saveIcon: {
+    icon: {
         width: "50px",
         cursor: "pointer",
     }
