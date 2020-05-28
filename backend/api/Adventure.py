@@ -2,8 +2,8 @@ from flask import jsonify, request
 from bson.objectid import ObjectId
 from flask_restful import Resource
 
+from .resources import Db
 
-from . import Db
 
 class Adventure(Resource):
     def __init__(self):

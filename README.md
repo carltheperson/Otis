@@ -31,3 +31,24 @@ This will include:
 * **GET /adventure/(id)** Returns the adventure object.
 * **PUT /adventure/(id)** Applies any changes included in the request body.
 * **DELETE /adventure/(id)** Deletes an adventure.
+
+* **GET /export/(id)** Returns new file exported from adventure source.
+
+
+### Otis markdown
+Here is an example of an adventure written in Otis markdown:
+
+```
+This is the main screen.
+
+* Here is an option {
+    Here is a screen inside an option.
+
+    * Another option {
+
+    }
+}
+* Here is another option {
+
+}
+```

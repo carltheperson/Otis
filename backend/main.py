@@ -2,8 +2,9 @@ from flask import Flask, jsonify, request, Blueprint
 from flask_restful import Resource, Api
 from flask_cors import CORS
 
-from resources.Adventure import Adventure, AdventureSpecific
-from resources import Db
+from api.Adventure import Adventure, AdventureSpecific
+from api.Export import Export
+from api.resources import Db
 
 app = Flask(__name__)
 CORS(app)
@@ -13,6 +14,7 @@ api = Api(api_bp)
 
 api.add_resource(Adventure, "/adventure")
 api.add_resource(AdventureSpecific, "/adventure/<id>")
+api.add_resource(Export, "/export/<id>")
 
 app.register_blueprint(api_bp)
 

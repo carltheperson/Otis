@@ -2,3 +2,5 @@ backend/__pycache__/
 backend/resources/__pycache__/
 frontend/node_modules/
 .vscode/
+backend/api/resources/__pycache__/
+backend/api/__pycache__/
