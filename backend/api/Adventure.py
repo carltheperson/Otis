@@ -13,7 +13,7 @@ class Adventure(Resource):
         adventures = self.adventures
         data = request.get_json()
         
-        adventure_id = adventures.insert({"title": data["title"], "source": "main: {\n\t\n}"})
+        adventure_id = adventures.insert({"title": data["title"], "source": ""})
 
         return {"id": str(adventure_id)}
         
