@@ -6,6 +6,7 @@ source = ""
 
 def convert(parsed):
     global source
+    source = ""
 
     convert_screen(parsed, "main")
     source += "\nmain"

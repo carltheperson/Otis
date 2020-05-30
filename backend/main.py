@@ -14,7 +14,7 @@ api = Api(api_bp)
 
 api.add_resource(Adventure, "/adventure")
 api.add_resource(AdventureSpecific, "/adventure/<id>")
-api.add_resource(Export, "/export/<id>")
+api.add_resource(Export, "/export/<file>/<id>")
 
 app.register_blueprint(api_bp)
 

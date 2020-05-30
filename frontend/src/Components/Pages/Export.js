@@ -11,12 +11,12 @@ export default function Export(props) {
     const exportOptions = [
         {
             displayName: "Batch (Windows)",
-            name: "batch",
+            file: "batch",
             fileEnding: ".bat",
         },
         {
             displayName: "Shell Script (Mac & Linux)",
-            name: "shellscript",
+            file: "shell_script",
             fileEnding: ".sh",
         }
     ]
@@ -32,12 +32,22 @@ export default function Export(props) {
         });
     }, [props.match.params.id]);
 
+    const downloadFile = (source, fileName) => {
+        const element = document.createElement("a");
+        const file = new Blob([source], {type: 'text/plain'});
+        element.href = URL.createObjectURL(file);
+        element.download = fileName;
+        document.body.appendChild(element);
+        element.click();
+    }
+
     const displayExportOptions = () => {
         return exportOptions.map((option, index) => {
 
             const requestExport = () => {
-                axios.get(`http://172.29.1.1:5000/api/export/${props.match.params.id}`, {name: option.name}).then((result) => {
-
+                console.log(option)
+                axios.get(`http://172.29.1.1:5000/api/export/${option.file}/${props.match.params.id}`).then((result) => {
+                    downloadFile(result.data.exported_output, title.replace(/[^a-z0-9]/gi, '_') + option.fileEnding)
                 }).catch((result) => {
                     setErrorMsg(result.data.errorMsg);
                 });

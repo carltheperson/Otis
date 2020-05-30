@@ -12,9 +12,8 @@ class Export(Resource):
     def __init__(self):
         self.adventures = Db.mongo.db.adventures
 
-    def get(self, id):
+    def get(self, file, id):
         adventures = self.adventures
-        data = request.get_json()
 
         adv = adventures.find_one({"_id": ObjectId(id)})
 
@@ -23,8 +22,8 @@ class Export(Resource):
         parsed_source = parser.parse(source)
 
         converted_source = ""
-        
-        if data["name"] == "shellscript":
+
+        if file == "shell_script":
             converted_source = shell_script.convert(parsed_source)
         
         return {"exported_output": converted_source}

@@ -32,7 +32,7 @@ This will include:
 * **PUT /adventure/(id)** Applies any changes included in the request body.
 * **DELETE /adventure/(id)** Deletes an adventure.
 
-* **GET /export/(id)** Returns new file exported from adventure source.
+* **GET /export/(file)/(id)** Returns new file exported from adventure source.
 
 
 ### Otis markdown

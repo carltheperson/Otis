@@ -15,7 +15,7 @@ def clean(source):
     return re.sub(r"[\t]*", "", source).rstrip().lstrip()
 
 def parse_screen(part):
-    text = clean(part.split("* ")[0]).replace("{\n", "")
+    text = clean(part.split("* ")[0]).replace("{\n", "").lstrip()
     options = get_options(part)
 
     return {"text": text, "options": options}
