@@ -1,0 +1,16 @@
+# The following is for development
+version: "3"
+services:
+    flask:
+        volumes:
+            - ./backend:/otis
+        ports:
+            - 5000:5000
+    db:
+        ports:
+            - 27017:27017
+    react:
+        volumes:
+            - ./frontend:/otis
+        ports:
+            - 3000:3000

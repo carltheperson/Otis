@@ -1,0 +1,27 @@
+pipeline {
+   agent any
+
+   stages {
+      stage("Prepare") {
+         steps {
+            sh "docker-compose -f docker-compose.yml build"
+            sh "docker-compose -f docker-compose.yml up -d"
+         }
+      }
+      stage("Testing") {
+         steps {
+            echo "Testing Flask"
+            sh "docker-compose exec -T flask bash /otis/test/test.sh"
+
+            echo "Testing React"
+            sh "docker-compose exec -T react npm test"
+         }
+    
+      }
+   }
+   post {
+        always {
+            sh "docker-compose down"
+        }
+    }
+}
