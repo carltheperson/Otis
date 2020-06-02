@@ -7,6 +7,7 @@ from .resources import Db
 from .resources import parser
 
 from .resources import shell_script
+from .resources import batch
 
 class Export(Resource):
     def __init__(self):
@@ -25,5 +26,7 @@ class Export(Resource):
 
         if file == "shell_script":
             converted_source = shell_script.convert(parsed_source)
+        if file == "batch":
+            converted_source = batch.convert(parsed_source)
         
         return {"exported_output": converted_source}
