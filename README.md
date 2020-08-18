@@ -2,7 +2,7 @@
 
 ![](screenshot.png)
 
-Otis will become a text adventure maker that converts to native shell scripts for different operating systems.
+Otis is a text adventure maker that converts to native shell scripts for different operating systems.
 It will have it's own markdown language, and is meant to be ran in Docker.
 
 You will be able to export to batch and bash.
